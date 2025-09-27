@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 x = np.linspace(-2, 2, 50)
 y = np.linspace(-2, 2, 50)
 X, Y = np.meshgrid(x, y)
-Z = X**2 + Y**2  # paraboloid
+Z = 3*(X**3) - (2*(X**2)*(Y**5))
 
 # Plot the surface
 fig = plt.figure()
