@@ -5,16 +5,20 @@ import matplotlib.pyplot as plt
 x = np.linspace(-2, 2, 50)
 y = np.linspace(-2, 2, 50)
 X, Y = np.meshgrid(x, y)
-Z = 3*(X**3) - (2*(X**2)*(Y**5))
+Z = X**2 + Y**2
+
+a = np.linspace(-2,2, 50)
+b = np.linspace(-2,2,50)
+A, B = np.meshgrid(a,b)
+C = A**2 - B**2
 
 # Plot the surface
-fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
-ax.plot_surface(X, Y, Z, cmap="viridis")
+fig, axs = plt.subplots(1, 2, subplot_kw={"projection":"3d"})
 
-ax.set_xlabel("x")
-ax.set_ylabel("y")
-ax.set_zlabel("z")
+axs[0].plot_surface(X, Y, Z, cmap="viridis")
+
+axs[1].plot_surface(A, B, C, cmap="viridis")
 
 plt.show()
+
 
