@@ -19,14 +19,14 @@ class BasePlot:
         Computes the loss value for each possible weight combination.
         TODO
         """
-        return None
+        pass
     
     def compute_gradient(self):
         """
         Computes the gradient component of the plot for the w1 and w2
         TODO
         """
-        return None
+        pass
     
     def update_w1(self, update)  -> None:
         """
@@ -34,7 +34,7 @@ class BasePlot:
 
         :param update: The new value of w1
         """
-        return None
+        pass
     
     def update_w2(self, update) -> None:
         """
@@ -42,7 +42,7 @@ class BasePlot:
         
         :param update: New value of w2
         """
-        return None
+        pass
     
     def update_alpha(self, update) -> None:
         """
@@ -50,10 +50,10 @@ class BasePlot:
         
         :param update: New value of alpha
         """
-        return None
+        pass
     
     def update_plot(self) -> None:
         """
         Updates the plot whenever the value of the weights or alpha are changed
         """
-        return None
+        pass
