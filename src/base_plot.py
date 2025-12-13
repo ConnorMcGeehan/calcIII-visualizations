@@ -5,9 +5,9 @@ from data_point import DataPoint
 
 class BasePlot:
     def __init__(self) -> None:
-        self.w1_range = np.linspace(0.5, 1.5, 50)
-        self.w2_range = np.linspace(1, 2, 50)
-        self.alpha = 1
+        self.w1_range = np.linspace(-1, 3, 50)
+        self.w2_range = np.linspace(-2, 2, 50)
+        self.alpha = 0
         # w1 is season record
         self.w1= 0.5
         # w2 is number of races run
@@ -30,6 +30,11 @@ class BasePlot:
         season_records = df["season_record"]
         num_races = df["number_races_run"]
 
+        season_records = (season_records - season_records.mean()) / season_records.std()
+        num_races = (num_races - num_races.mean()) / num_races.std()
+        personal_records = (personal_records - personal_records.mean()) / personal_records.std()
+
+
         for i in range(len(df)):
             data_point = DataPoint(season_records[i], num_races[i], personal_records[i])
             self.data_list.append(data_point)
@@ -46,10 +51,9 @@ class BasePlot:
                     + (Y*dp.get_num_races()) 
                     - (dp.get_personal_record()))
             
-            sq_loss = loss**2
-            inner_terms.append(sq_loss + (self.alpha*((X**4 + Y**4))))
+            inner_terms.append(loss**2)
         
-        Z = (1/len(self.data_list)) * sum(inner_terms)
+        Z = (1/len(self.data_list)) * sum(inner_terms) + (self.alpha*((X**4 + Y**4)))
 
         return X, Y, Z
 
