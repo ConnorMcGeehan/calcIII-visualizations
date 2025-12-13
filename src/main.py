@@ -1,7 +1,7 @@
-import numpy as np
-import pandas as pd
+import matplotlib.pyplot as plt
 from function_surface import FunctionSurface
-from data_point import DataPoint
+from level_curves import LevelCurves
+from ui import UI
 
 
 class Main:
@@ -10,7 +10,7 @@ class Main:
         """
         The function that runs the project
         """
-        FunctionSurface().plot()
+        UI().show()
 
 
 Main().run()
