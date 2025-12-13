@@ -23,15 +23,12 @@ class Main:
         for i in range(len(df)):
             data_point = DataPoint(season_records[i], num_races[i], personal_records[i])
             self.data_list.append(data_point)
-            if i == 0 or i == len(df) - 1:
-                print(data_point.get_personal_record())
 
     def run(self):
         """
         The function that runs the project
         """
         self.get_data()
-        print(len(self.data_list))
 
 
 m = Main()
