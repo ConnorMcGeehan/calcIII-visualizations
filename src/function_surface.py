@@ -12,12 +12,15 @@ class FunctionSurface(BasePlot):
         self.y = self.Y
         self.z = self.Z
         
-    def plot(self):
+    def plot(self, ax=None):
         """
         Generate and display the function surface.
         """
-        fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+        if ax==None:
+            fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
         ax.plot_surface(self.x, self.y, self.z, cmap="viridis")
+        ax.set_xlabel("Season Record Weight")
+        ax.set_ylabel("Number of Races Run Weight")
+        ax.set_title("Surface of Loss Function for Predicting Personal Record")
 
-        plt.show()

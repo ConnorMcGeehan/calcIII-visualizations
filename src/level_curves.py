@@ -11,19 +11,16 @@ class LevelCurves(BasePlot):
         self.y = self.Y
         self.z = self.Z
 
-    def plot(self):
+    def plot(self, ax=None):
         """
         Draw level curves for the loss function/grid computed by `BasePlot`.
         :returns: The level curves plot for the function defined in `BasePlot`
         """
-        fig, ax = plt.subplots()
-        CS = ax.contour(self.x, self.y, self.z)
-        ax.clabel(CS, fontsize=10)
-        plt.show()
+        if ax==None:
+            fig, ax = plt.subplots()
 
-    def update_plot(self):
-        """
-        Convenience wrapper to redraw/update the level curves on when weights or
-        alpha are updated.
-        """
-        pass
+        contour = ax.contour(self.x, self.y, self.z)
+        ax.clabel(contour, fontsize=10)
+        ax.set_xlabel("Season Record Weight")
+        ax.set_ylabel("Number of Races Run Weight")
+        ax.set_title("Level Curves of Loss Function for Predicting Personal Record")
