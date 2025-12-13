@@ -1,14 +1,14 @@
 class DataPoint:
-    def __init__(self, a, b, pred):
-        self.a = a
-        self.b = b
-        self.pred = pred
+    def __init__(self, a, b, actual):
+        self.season_record = a
+        self.num_races = b
+        self.personal_record = actual
     
-    def get_a(self):
-        return self.a
+    def get_season_record(self):
+        return self.season_record
     
-    def get_b(self):
-        return self.b
+    def get_num_races(self):
+        return self.num_races
     
-    def get_pred(self):
-        return self.pred
+    def get_personal_record(self):
+        return self.personal_record
