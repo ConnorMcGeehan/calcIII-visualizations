@@ -1,26 +1,38 @@
 import numpy as np
+import pandas as pd
 from base_plot import BasePlot
+from data_point import DataPoint
 
 
-class Main():
-
+class Main:
     def __init__(self):
-        self.data_list = None
+        self.data_list = []
 
-    def get_data():
+    def get_data(self):
         """
         Parses nationals_data.csv and stores the relevant rows/columns
         as `DataPoint` objects.
         :post: self.data_list is populated with `DataPoint` objects
         """
-        pass
-    
-    def run():
+        df = pd.read_csv("./data/nationals_data.csv")
+        
+        personal_records = df["personal_record"]
+        season_records = df["season_record"]
+        num_races = df["number_races_run"]
+
+        for i in range(len(df)):
+            data_point = DataPoint(season_records[i], num_races[i], personal_records[i])
+            self.data_list.append(data_point)
+            if i == 0 or i == len(df) - 1:
+                print(data_point.get_personal_record())
+
+    def run(self):
         """
         The function that runs the project
         """
-        pass
+        self.get_data()
+        print(len(self.data_list))
 
 
-
-Main.run()
+m = Main()
+m.run()
