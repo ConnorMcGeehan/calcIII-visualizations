@@ -9,14 +9,16 @@ class BasePlot:
         self.w2_range = np.linspace(-2, 2, 50)
         self.alpha = 0
         # w1 is season record
-        self.w1= 0.5
+        self.w1= 0
         # w2 is number of races run
         # trying to predict personal record
-        self.w2 = 2
+        self.w2 = 0
         self.data_list = []
         self.get_data()
 
         self.X, self.Y, self.Z = self.compute_loss_grid()
+        self.grad_X, self.grad_Y = self.compute_gradient()
+        self.current_z = self.compute_loss_at_point(self.w1, self.w2)
 
     def get_data(self):
         """
@@ -60,11 +62,47 @@ class BasePlot:
     
     def compute_gradient(self):
         """
-        Computes the gradient component of the plot for the w1 and w2
-        TODO
+        Computes the gradient at the current point (self.w1, self.w2)
         """
-        pass
+        w1_mse_grad = 0
+        w2_mse_grad = 0
+        
+        for dp in self.data_list:
+            residual = (
+                (self.w1 * dp.get_season_record()) 
+                + (self.w2 * dp.get_num_races()) 
+                - dp.get_personal_record()
+            )
+            
+            w1_mse_grad += residual * dp.get_season_record()
+            w2_mse_grad += residual * dp.get_num_races()
+        
+        w1_mse_grad = (2 / len(self.data_list)) * w1_mse_grad
+        w2_mse_grad = (2 / len(self.data_list)) * w2_mse_grad
+        
+        w1_partial = w1_mse_grad + (4 * self.alpha * (self.w1**3))
+        w2_partial = w2_mse_grad + (4 * self.alpha * (self.w2**3))
+
+        return w1_partial, w2_partial
     
+    def compute_loss_at_point(self, w1, w2):
+        """
+        Computes the loss at a specific point
+        
+        :param w1: The x-value of the point (weight 1)
+        :param w2: The y-value of the point (weight 2)
+        :returns: The z-value for the function L(w1, w2)
+        """
+        sq_error = 0
+        for dp in self.data_list:
+            loss = (w1*dp.get_season_record()) + (w2*dp.get_num_races()) - dp.get_personal_record()
+            sq_error += loss**2
+
+        mse = sq_error/len(self.data_list)
+        z = mse + (self.alpha*(self.w1**4 + self.w2**4))
+        return z
+
+
     def update_w1(self, update)  -> None:
         """
         Updates the value of w1 when the slider is adjusted  
