@@ -2,7 +2,9 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{hyperref}
 
+\hypersetup{colorlinks=true, urlcolor=blue}
 
 \title{%
   MATH 211 Final Project \\
@@ -163,11 +165,40 @@ checked when setting gradient equal to zero, and introducing randomness or adjus
 descent), but neither can be completely avoided. However, this is not an issue for the loss function being
 examined in this project, as it is still convex. 
 
-\section{Model Assumptions \& Limitations}
-Present your findings.
+\section{Model Limitations}
+There are a few key limitations to this specific model that are results of choices made to highlight
+some of the calculus applications instead of typical data science decisions. As mentioned earlier, the
+quartic penalty is not a commonly used method of regularization. It is mathematically interesting, 
+as the functions surfaces changes dramatically when it is added, but it is not practical in most models. 
+The sudden growth that results from large weights makes it hard to use practically. 
+
+The data for this model was also normalized with a z-score, which changes the meaning of the weights. 
+Due to the drastic difference in values of the Number of Races Run column and the Season Record column, 
+I used a z-score to normalize the data, meaning that both columns had a mean of 0 and a standard deviation
+of 1. This made the visualization much clearer; beforehand it looked like a long valley due to the difference
+in impacts of changing the weights slightly. With this change, the weights now show the impact of each variable,
+so they can see which variable is more impactful by observing which weight is larger. However, you can no 
+longer use the weights to say "a one second change in season record leads to a X increase in personal record."
+
 
 \section{Implementation}
-Present your findings.
+This project was created with python, primarily utilizing the matplotlib library. I will briefly discuss some 
+of the decisions I made while implementing this project, but if you are interested in seeing more all of the 
+code can be viewed in the GitHub repository: \url{https://github.com/ConnorMcGeehan/calcIII-visualizations/tree/main}
+
+In order to make this project easy to use and update, I utilized many different classes to control small aspects
+of the visualization. The \texttt{BasePlot} class houses most of the information about the data and the functions.
+It pulls the data out of the csv, and then calculates what the loss would be for each combination of weights on the set
+axes. This class also computes the gradient for the set values of \texttt{w1} and \texttt{w2} values, 
+which indicate the values of the weights for the Season Record and Number of Races Run columns. The \texttt{FunctionSurface}
+and \texttt{LevelCurves} house the code needed to plot the respective plots given the information in \texttt{BasePlot}.
+The code that controls the sliders is inside the \texttt{UI} class, which also actually shows the plots. This class
+is also responsible for updating the plots when the sliders are changed. 
+
+I chose to add the sliders to help assist with seeing how the concepts learned in calculus actually relate to data 
+science. By being able to see how the gradient changes at different weights, you can visualize how gradient descent 
+would be implemented. You can also adjust the graph itself by changing alpha, which allows for more interesting surfaces
+to be visualized than a basic convex MSE loss function.
 
 \section{Visualizations}
 Present your findings.
