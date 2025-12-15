@@ -1,5 +1,3 @@
-from base_plot import BasePlot
-import numpy as np
 import matplotlib.pyplot as plt
 
 
