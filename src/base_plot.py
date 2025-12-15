@@ -109,7 +109,8 @@ class BasePlot:
 
         :param update: The new value of w1
         """
-        pass
+        self.w1=update
+        self.update_plot()
     
     def update_w2(self, update) -> None:
         """
@@ -117,7 +118,8 @@ class BasePlot:
         
         :param update: New value of w2
         """
-        pass
+        self.w2 = update
+        self.update_plot()
     
     def update_alpha(self, update) -> None:
         """
@@ -125,10 +127,13 @@ class BasePlot:
         
         :param update: New value of alpha
         """
-        pass
+        self.alpha = update
+        self.update_plot()
     
     def update_plot(self) -> None:
         """
         Updates the plot whenever the value of the weights or alpha are changed
         """
-        pass
+        self.X, self.Y, self.Z = self.compute_loss_grid()
+        self.grad_X, self.grad_Y = self.compute_gradient()
+        self.current_z = self.compute_loss_at_point(self.w1, self.w2)
