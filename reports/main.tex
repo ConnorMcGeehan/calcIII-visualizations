@@ -3,6 +3,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{placeins}
+
 
 \hypersetup{colorlinks=true, urlcolor=blue}
 
@@ -201,9 +204,85 @@ would be implemented. You can also adjust the graph itself by changing alpha, wh
 to be visualized than a basic convex MSE loss function.
 
 \section{Visualizations}
-Present your findings.
+
+The plots open up with the weights and alpha all set to 0. This shows what the MSE loss function looks like in a 
+normal state. As seen in Figure~\ref{fig:original}, the MSE loss function is a very basic convex function. It has one local minimum,
+and increases fairly evenly in all directions. The gradient is highlighted with a red arrow on both plots, although
+it is more easily visualized with the level curves.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{visuals/original.png}
+    \caption{Original loss surface visualization}
+    \label{fig:original}
+\end{figure}
+\FloatBarrier
+
+Adjusting the alpha slider allows the user to see what happens when a quartic penalty is added. Although the appearance
+of the graph doesn't change much between $\alpha=1$ and $\alpha=10$, you can see on both the z-axis and the level curves
+how the amount of loss changes with the values of alpha. As seen in Figure~\ref{fig:alpha1} and Figure~\ref{fig:alpha10},
+when the quartic penalty is added, the function becomes much flatter around the local minimum, but incredibly steep once it
+does start to increase. This makes a lot of sense when considering what the quartic penalty is doing: setting each weight
+to the fourth power and then multiplying them by $\alpha$. This is another great example of why quartic penalties aren't 
+always a very practical option.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{visuals/alpha1.png}
+        \caption{Setting $\alpha=1$}
+        \label{fig:alpha1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{visuals/alpha10.png}
+        \caption{Setting $\alpha=10$}
+        \label{fig:alpha10}
+    \end{subfigure}
+    \caption{Effect of quartic penalty with different $\alpha$ values}
+\end{figure}
+\FloatBarrier
+
+Figure~\ref{fig:min} allows you to see what happens when you adjust the weights so that they are at the 
+minimum value of the function. For the MSE loss function, the minimum is around $L(1, 0)$. When the 
+gradient is adjusted to that location, you can see that it disappears, indicating that it is at a 
+critical point.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{visuals/min.png}
+    \caption{Gradient at the Local Minimum}
+    \label{fig:min}
+\end{figure}
+\FloatBarrier
+
+Finally, Figure~\ref{fig:diff_weights} and Figure~\ref{fig:diff_weights_alpha} allow you to see what the 
+plots look like with varying weights and alpha configurations.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{visuals/diff_weights.png}
+        \caption{Changing the weights}
+        \label{fig:diff_weights}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{visuals/diff_weights_alpha.png}
+        \caption{Changing the weights and alpha}
+        \label{fig:diff_weights_alpha}
+    \end{subfigure}
+    \caption{Loss surfaces with varying weight and penalty configurations}
+\end{figure}
+\FloatBarrier
+
+
 
 \section{Conclusion}
-Wrap up your report.
+Wrap up your report
 
 \end{document}
