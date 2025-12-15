@@ -3,13 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class LevelCurves(BasePlot):
+class LevelCurves():
 
-    def __init__(self):
-        super().__init__()
-        self.x = self.X
-        self.y = self.Y
-        self.z = self.Z
+    def __init__(self, base_plot):
+        self.bp = base_plot
 
     def plot(self, ax=None):
         """
@@ -19,10 +16,10 @@ class LevelCurves(BasePlot):
         if ax==None:
             fig, ax = plt.subplots()
 
-        contour = ax.contour(self.x, self.y, self.z)
+        contour = ax.contour(self.bp.X, self.bp.Y, self.bp.Z)
         ax.clabel(contour, fontsize=10)
-        ax.scatter([self.w1], [self.w2], c="red", s=100)
-        ax.quiver(self.w1, self.w2, self.grad_X, self.grad_Y,
+        ax.scatter([self.bp.w1], [self.bp.w2], c="red", s=100)
+        ax.quiver(self.bp.w1, self.bp.w2, self.bp.grad_X, self.bp.grad_Y,
                    color='red', scale=15)
 
         ax.set_xlabel("Season Record Weight")
