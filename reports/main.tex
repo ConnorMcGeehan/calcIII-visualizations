@@ -20,20 +20,19 @@
 \maketitle
 
 \section{Introduction}
-There are many applications of Multivariable Calculus to almost any field that
-you could think of. For my final project, I wanted to combine my experience with
-computer science and data science to show one way that calculus is used when 
-creating machine learning models.
+There are many applications of multivariable calculus across nearly every field. For
+ my final project, I wanted to combine my experience with computer science and data 
+science to show one way that calculus is used when creating machine learning models.
 
 To do this, I decided that I would create a relatively basic program that 
-visualizes a commonly used loss function, the Mean Square Error (MSE) loss function, 
-it's gradient at different weights, and the level curves of the function. To make
+visualizes a commonly used loss function, the Mean Squared Error (MSE) loss function, 
+its gradient at different weights, and the level curves of the function. To make
 the visualization more interesting, I added a quartic penalty term. The user can 
 adjust the value of alpha for this term, so that they can see how the gradient,
 function surface, and level curves change with different penalties. 
 
 This report details the steps that I took to calculate this function, manipulate 
-the data, and create the visualization while creating the program. 
+the data, and create the visualizations. 
 
 \section{Data Description}
 The data for this project was collected for a final project that I am doing for 
@@ -41,11 +40,11 @@ a data science course I am currently taking. The data contains some basic inform
 about Division III Cross Country Runners who competed at the National Meet in 2021, 
 2022, or 2023, and was collected via the API for LACCTiC.com. The columns that I used 
 for this project were Season Record, Personal Record, and Number of Races Run. These 
-were chosen somewhat randomly, but I did find that when they were standardized they
+were chosen somewhat arbitrarily, but I did find that when they were standardized they
 created a nice visualization. 
 
 Overall, the specific data does not play an extremely important role in this project, 
-but I thought it would be important to reference it's origin and meaning. 
+but I thought it would be important to reference its origin and meaning. 
 
 \section{Loss Function Definition}
 \subsection{The Loss Function}
@@ -94,9 +93,9 @@ gradient descent, which will be discussed in the next section. The general formu
 gradient is below: 
 $$
 \nabla f(\textbf{x})=\left(
-\dfrac{\partial f}{\partial x_1}\\
-\dfrac{\partial f}{\partial x_2} \\
-\dots \\
+\dfrac{\partial f}{\partial x_1},\\
+\dfrac{\partial f}{\partial x_2}, \\
+\dots, \\
 \dfrac{\partial f}{\partial x_n} 
 \right)
 $$
@@ -128,7 +127,7 @@ results in the following equation:
 The critical points of a loss function are \textit{critical} to data science. Critical points
 are places where the gradient of a function is equal to 0. For models in $\mathbb{R}^3$, a
 gradient equaling 0 means that there is either a local minima, maxima, or saddle point. Local 
-minima and maxima are where the function either increases or decreases, respectfully, in all 
+minima and maxima occur where the function either increases or decreases, respectfully, in all 
 neighboring directions. A saddle point is where the function may increase in some directions
 but decrease in others around the point. 
 
@@ -139,7 +138,8 @@ a single minimum on the function, which is the ideal combination of weights for 
 Some models, such as neural networks, can produce different results with loss functions, and 
 this can lead to there being multiple minima. When this is the case each critical point needs to 
 be identified and then tested to determine which one has the lowest error. However, for our equation 
-there is only one minimum.
+there is only one minimum, as both the MSE function and the quartic penalty are convex functions,
+guaranteeing a single global minimum. 
 
 There are two main methods for locating critical points for a loss function: setting the gradient equal 
 to zero and then classifying the results, and gradient descent. The two are discussed briefly below. 
@@ -153,13 +153,16 @@ equal to zero. Some functions are too computationally intensive to be worth this
 where gradient descent comes in. 
 
 Gradient descent is an algorithm where the gradient is calculated at a random starting point on the 
-functions surface, and then a new point is obtained by travelling in the opposite direction of the gradient. 
+function's surface, and then a new point is obtained by travelling in the opposite direction of the gradient. 
 This method aims to follow the steepest path down a loss function by taking the opposite of the gradient 
 which points in the direction of the greatest incresase. Gradient descent does not require nearly as much
 computation as setting the gradient equal to zero, making it much more efficient for complex functions. 
 This method is not without pitfalls either, though. It is not as precise as setting the gradient equal to 
 zero, as there is a set amount that you travel along the gradient. This method will get you close to the 
-minimum of a function, but it is not guaranteed to find the true minimum's location. 
+minimum of a function, but it is not guaranteed to find the true minimum's location in all scenarios. 
+If the function is convex, gradient descent should get you to the local minimum under the appropriate
+conditions, but if the function is non-convex, or simply more complex, gradient descent may not find the
+true minimum. 
 
 Both of these methods also suffer from the fact that they can miss the true global minimum by getting trapped
 in a local minimum. These are places where there is a critical point where it is a minima, but it is not the
@@ -172,7 +175,7 @@ examined in this project, as it is still convex.
 There are a few key limitations to this specific model that are results of choices made to highlight
 some of the calculus applications instead of typical data science decisions. As mentioned earlier, the
 quartic penalty is not a commonly used method of regularization. It is mathematically interesting, 
-as the functions surfaces changes dramatically when it is added, but it is not practical in most models. 
+as the function's surfaces changes dramatically when it is added, but it is not practical in most models. 
 The sudden growth that results from large weights makes it hard to use practically. 
 
 The data for this model was also normalized with a z-score, which changes the meaning of the weights. 
@@ -185,8 +188,8 @@ longer use the weights to say "a one second change in season record leads to a X
 
 
 \section{Implementation}
-This project was created with python, primarily utilizing the matplotlib library. I will briefly discuss some 
-of the decisions I made while implementing this project, but if you are interested in seeing more all of the 
+This project was created with Python, primarily utilizing the matplotlib library. I will briefly discuss some 
+of the decisions I made while implementing this project, but if you are interested in seeing more, all of the 
 code can be viewed in the GitHub repository: \url{https://github.com/ConnorMcGeehan/calcIII-visualizations/tree/main}
 
 In order to make this project easy to use and update, I utilized many different classes to control small aspects
@@ -205,10 +208,10 @@ to be visualized than a basic convex MSE loss function.
 
 \section{Visualizations}
 
-The plots open up with the weights and alpha all set to 0. This shows what the MSE loss function looks like in a 
-normal state. As seen in Figure~\ref{fig:original}, the MSE loss function is a very basic convex function. It has one local minimum,
-and increases fairly evenly in all directions. The gradient is highlighted with a red arrow on both plots, although
-it is more easily visualized with the level curves.
+The plots open up with the weights and alpha all set to 0. This shows what the MSE loss function looks like
+without regularization. As seen in Figure~\ref{fig:original}, the MSE loss function is a very basic convex
+function. It has one local minimum, and increases fairly evenly in all directions. The gradient is highlighted 
+with a red arrow on both plots, although it is more easily visualized with the level curves.
 
 \begin{figure}[htbp]
     \centering
@@ -246,7 +249,7 @@ always a very practical option.
 \FloatBarrier
 
 Figure~\ref{fig:min} allows you to see what happens when you adjust the weights so that they are at the 
-minimum value of the function. For the MSE loss function, the minimum is around $L(1, 0)$. When the 
+minimum value of the function. For the MSE loss function, the minimum occurs near $(w_1, w_2) = (1, 0)$. When the 
 gradient is adjusted to that location, you can see that it disappears, indicating that it is at a 
 critical point.
 
