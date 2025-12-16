@@ -70,24 +70,23 @@ python3 ./src/main.py
 
 ## Mathematical Overview
 
-This project visualizes a loss function defined over two variables, representing the weights of a simple linear model. Given two input features \(X_1\) and \(X_2\), the model predicts an output as:
+This project visualizes a loss function defined over two variables, representing the weights of a simple linear model. Given two input features $X_1$ and $X_2$, the model predicts an output as:
 
-\( \hat{y} = w_1 X_1 + w_2 X_2 \)
+$$\hat{y} = w_1 X_1 + w_2 X_2$$
 
 Model performance is measured using a Mean Squared Error (MSE) loss function with an optional quartic penalty term. The full loss function is:
 
-\( L(w_1, w_2) = \frac{1}{n} \sum_{i=1}^{n} ((w_1 X_{1i} + w_2 X_{2i}) - y_i)^2 + \alpha (w_1^4 + w_2^4) \)
+$$L(w_1, w_2) = \frac{1}{n} \sum_{i=1}^{n} ((w_1 X_{1i} + w_2 X_{2i}) - y_i)^2 + \alpha (w_1^4 + w_2^4)$$
 
-where \(w_1\) and \(w_2\) are the model weights, \(y_i\) are observed outputs, \(n\) is the number of observations, and \(\alpha\) controls the strength of the penalty.
+where $w_1$ and $w_2$ are the model weights, $y_i$ are observed outputs, $n$ is the number of observations, and $\alpha$ controls the strength of the penalty.
 
 The gradient of the loss function is computed using partial derivatives:
 
-\( \frac{\partial L}{\partial w_1} = \frac{2}{n} \sum_{i=1}^{n} ((w_1 X_{1i} + w_2 X_{2i}) - y_i) X_{1i} + 4 \alpha w_1^3 \)
+$$\frac{\partial L}{\partial w_1} = \frac{2}{n} \sum_{i=1}^{n} ((w_1 X_{1i} + w_2 X_{2i}) - y_i) X_{1i} + 4 \alpha w_1^3$$
 
-\( \frac{\partial L}{\partial w_2} = \frac{2}{n} \sum_{i=1}^{n} ((w_1 X_{1i} + w_2 X_{2i}) - y_i) X_{2i} + 4 \alpha w_2^3 \)
+$$\frac{\partial L}{\partial w_2} = \frac{2}{n} \sum_{i=1}^{n} ((w_1 X_{1i} + w_2 X_{2i}) - y_i) X_{2i} + 4 \alpha w_2^3$$
 
 Critical points occur where both partial derivatives are equal to zero. Since the MSE term and the quartic penalty are both convex, the resulting loss surface has a single global minimum. Restricting the model to two weights makes it possible to visualize the loss surface, level curves, and gradient behavior directly, providing geometric intuition for optimization and gradient descent.
-
 
 ## Report
 A detailed project report is in the `reports` directory for more information. The report explains the math behind the model, the data being used, how and why it was created, and includes screenshots of the project in use.
